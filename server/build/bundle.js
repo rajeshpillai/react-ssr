@@ -27813,9 +27813,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Home = function Home() {
     return _react2.default.createElement(
-        'div',
+        "div",
         null,
-        'Home>'
+        _react2.default.createElement(
+            "h2",
+            null,
+            "Home>"
+        ),
+        _react2.default.createElement(
+            "button",
+            { onClick: function onClick() {
+                    return console.log("hello!");
+                } },
+            "Click me!"
+        )
     );
 };
 exports.default = Home;
