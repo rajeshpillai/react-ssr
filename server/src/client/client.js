@@ -1,1 +1,6 @@
-console.log("I am a client! and avaialble in your browser :)");
+// Client side startup file
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Home from './components/home';
+
+ReactDOM.render(<Home />, document.querySelector("#root"));
