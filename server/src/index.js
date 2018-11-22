@@ -1,10 +1,16 @@
 // ROOT file of server
 
-const express = require('express');
-const React = require('react');
+// const express = require('express');
+// const React = require('react');
+// const renderToString = require('react-dom/server').renderToString;
+// const Home = require('./client/components/home').default;
+
+import express from 'express';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import Home from './client/components/home';
+
 const app = express();
-const renderToString = require('react-dom/server').renderToString;
-const Home = require('./client/components/home').default;
 
 app.get('/', (req, res) => {
     const content = renderToString(<Home />);
@@ -12,5 +18,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(3000, () => {
-    console.log('Listening on port 3000...');
+    console.log('Listening on port 3000....');
 });

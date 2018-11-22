@@ -8906,21 +8906,38 @@ module.exports = memoizeStringOnly;
 "use strict";
 
 
+var _express = __webpack_require__(68);
+
+var _express2 = _interopRequireDefault(_express);
+
+var _react = __webpack_require__(26);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _server = __webpack_require__(147);
+
+var _home = __webpack_require__(156);
+
+var _home2 = _interopRequireDefault(_home);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // ROOT file of server
 
-var express = __webpack_require__(68);
-var React = __webpack_require__(26);
-var app = express();
-var renderToString = __webpack_require__(147).renderToString;
-var Home = __webpack_require__(156).default;
+// const express = require('express');
+// const React = require('react');
+// const renderToString = require('react-dom/server').renderToString;
+// const Home = require('./client/components/home').default;
+
+var app = (0, _express2.default)();
 
 app.get('/', function (req, res) {
-    var content = renderToString(React.createElement(Home, null));
+    var content = (0, _server.renderToString)(_react2.default.createElement(_home2.default, null));
     res.send(content);
 });
 
 app.listen(3000, function () {
-    console.log('Listening on port 3000...');
+    console.log('Listening on port 3000....');
 });
 
 /***/ }),
@@ -27798,7 +27815,7 @@ var Home = function Home() {
     return _react2.default.createElement(
         'div',
         null,
-        'Home'
+        'Home>'
     );
 };
 exports.default = Home;
