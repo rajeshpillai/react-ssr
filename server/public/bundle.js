@@ -21244,7 +21244,7 @@ var Home = function Home() {
         _react2.default.createElement(
             "h2",
             null,
-            "Home is where Heart is>"
+            "Home is where Heart is!"
         ),
         _react2.default.createElement(
             "button",

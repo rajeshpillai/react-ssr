@@ -6,26 +6,14 @@
 // const Home = require('./client/components/home').default;
 
 import express from 'express';
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-import Home from './client/components/home';
+import home from './views/home';
 
 const app = express();
 
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-    const content = renderToString(<Home />);
-    const html = `
-        <html>
-            <head></head>
-            <body>
-            <div id="root">${content}</div>
-            <script src="bundle.js"></script>
-            </body>
-        </html>
-    `;
-    res.send(html);
+    res.send(home());
 });
 
 app.listen(3000, () => {
