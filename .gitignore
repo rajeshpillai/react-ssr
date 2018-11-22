@@ -1,2 +1,10 @@
 node_modules
-vscode
+.vscode
+.DS_STORE
+.grunt
+*.pyc
+build/
+coverage/
+*.swp
+*.swo
+
