@@ -1,0 +1,18 @@
+module.exports = {
+    module: {
+        rules: [
+            {
+                test: /\.js?$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                options: {
+                    presets: [
+                        'react',
+                        'stage-0',  // for some async stuff
+                        ['env', { targets: { browers: ['last 2 versions'] } }]
+                    ]
+                }
+            }
+        ]
+    }
+}
