@@ -84,7 +84,7 @@ var _home2 = _interopRequireDefault(_home);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(_react2.default.createElement(_home2.default, null), document.querySelector("#root")); // Client side startup file
+_reactDom2.default.hydrate(_react2.default.createElement(_home2.default, null), document.querySelector("#root")); // Client side startup file
 
 /***/ }),
 /* 1 */
