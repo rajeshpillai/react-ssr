@@ -1,4 +1,5 @@
 import React from 'react';
+import Task from './task';
 
 class Home extends React.Component {
     constructor() {
@@ -11,7 +12,8 @@ class Home extends React.Component {
                 { id: 1, "title": "Task 1", done: false, edit: false, rating: 5 },
                 { id: 2, "title": "Task 2", done: true, edit: false, rating: 0 },
                 { id: 3, "title": "Task 3", done: false, edit: false, rating: 2 }
-            ]
+            ],
+            currentTask: null
         }
     }
 
@@ -35,10 +37,24 @@ class Home extends React.Component {
         })
     }
 
+    showTodo(e, todoId) {
+        e.preventDefault();
+        let todo = this.state.tasks.find((t) => t.id === todoId);
+        //alert(JSON.stringify(todo));
+        this.setState({
+            currentTask: todo
+        });
+
+    }
+
     render() {
+        let currentTask = this.state.currentTask;
         let taskListUI = this.state.tasks.map((task) => {
             return (
-                <li key={task.id}>{task.title}</li>
+                <li key={task.id}>
+                    <a onClick={(e) => this.showTodo(e, task.id)}
+                        href={`/todos/${task.id}`}>{task.title}</a>
+                </li >
             );
         });
         return (
@@ -50,7 +66,10 @@ class Home extends React.Component {
                     value={this.state.newTask} />
                 <button onClick={this.addTodo}>new todo</button>
                 {taskListUI}
-            </div>
+
+                {currentTask && <Task currentTask={currentTask} />
+                }
+            </div >
         );
     }
 };

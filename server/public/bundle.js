@@ -21237,6 +21237,10 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _task = __webpack_require__(33);
+
+var _task2 = _interopRequireDefault(_task);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -21259,13 +21263,14 @@ var Home = function (_React$Component) {
         _this.addTodo = _this.addTodo.bind(_this);
         _this.state = {
             newTask: "",
-            tasks: [{ id: 1, "title": "Task 1", done: false, edit: false, rating: 5 }, { id: 2, "title": "Task 2", done: true, edit: false, rating: 0 }, { id: 3, "title": "Task 3", done: false, edit: false, rating: 2 }]
+            tasks: [{ id: 1, "title": "Task 1", done: false, edit: false, rating: 5 }, { id: 2, "title": "Task 2", done: true, edit: false, rating: 0 }, { id: 3, "title": "Task 3", done: false, edit: false, rating: 2 }],
+            currentTask: null
         };
         return _this;
     }
 
     _createClass(Home, [{
-        key: "addTodo",
+        key: 'addTodo',
         value: function addTodo() {
             var newTask = {
                 userId: 1, // hardcoded user
@@ -21279,40 +21284,63 @@ var Home = function (_React$Component) {
             });
         }
     }, {
-        key: "handleChange",
+        key: 'handleChange',
         value: function handleChange(e) {
             this.setState({
                 newTask: e.target.value
             });
         }
     }, {
-        key: "render",
+        key: 'showTodo',
+        value: function showTodo(e, todoId) {
+            e.preventDefault();
+            var todo = this.state.tasks.find(function (t) {
+                return t.id === todoId;
+            });
+            //alert(JSON.stringify(todo));
+            this.setState({
+                currentTask: todo
+            });
+        }
+    }, {
+        key: 'render',
         value: function render() {
+            var _this2 = this;
+
+            var currentTask = this.state.currentTask;
             var taskListUI = this.state.tasks.map(function (task) {
                 return _react2.default.createElement(
-                    "li",
+                    'li',
                     { key: task.id },
-                    task.title
+                    _react2.default.createElement(
+                        'a',
+                        { onClick: function onClick(e) {
+                                return _this2.showTodo(e, task.id);
+                            },
+                            href: '/todos/' + task.id },
+                        task.title
+                    )
                 );
             });
             return _react2.default.createElement(
-                "div",
+                'div',
                 null,
                 _react2.default.createElement(
-                    "h2",
+                    'h2',
                     null,
-                    "Task Application"
+                    'Task Application'
                 ),
-                _react2.default.createElement("input", { onChange: this.handleChange,
-                    className: "todo-input", type: "text",
-                    placeholder: "what do you want to do today?",
+                _react2.default.createElement('input', { onChange: this.handleChange,
+                    className: 'todo-input', type: 'text',
+                    placeholder: 'what do you want to do today?',
                     value: this.state.newTask }),
                 _react2.default.createElement(
-                    "button",
+                    'button',
                     { onClick: this.addTodo },
-                    "new todo"
+                    'new todo'
                 ),
-                taskListUI
+                taskListUI,
+                currentTask && _react2.default.createElement(_task2.default, { currentTask: currentTask })
             );
         }
     }]);
@@ -21322,6 +21350,67 @@ var Home = function (_React$Component) {
 
 ;
 exports.default = Home;
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Task = function (_React$Component) {
+    _inherits(Task, _React$Component);
+
+    function Task() {
+        _classCallCheck(this, Task);
+
+        return _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).apply(this, arguments));
+    }
+
+    _createClass(Task, [{
+        key: "render",
+        value: function render() {
+            var currentTask = this.props.currentTask;
+            return _react2.default.createElement(
+                "div",
+                { className: "current-task" },
+                _react2.default.createElement(
+                    "h3",
+                    null,
+                    currentTask.title
+                ),
+                _react2.default.createElement(
+                    "span",
+                    null,
+                    currentTask.done
+                )
+            );
+        }
+    }]);
+
+    return Task;
+}(_react2.default.Component);
+
+;
+exports.default = Task;
 
 /***/ })
 /******/ ]);
