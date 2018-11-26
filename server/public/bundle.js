@@ -21329,6 +21329,13 @@ var Home = function (_React$Component) {
                             },
                             href: '/todos/' + task.id },
                         task.title
+                    ),
+                    _react2.default.createElement(
+                        'a',
+                        { title: 'open in new window',
+                            href: '/todos/' + task.id,
+                            target: '_blank' },
+                        '\u2B1C'
                     )
                 );
             });

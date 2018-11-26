@@ -60,6 +60,10 @@ class Home extends React.Component {
                 <li key={task.id}>
                     <a onClick={(e) => this.showTodo(e, task.id)}
                         href={`/todos/${task.id}`}>{task.title}</a>
+
+                    <a title="open in new window"
+                        href={`/todos/${task.id}`}
+                        target="_blank">⬜</a>
                 </li >
             );
         });
