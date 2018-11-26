@@ -1,20 +1,29 @@
 // ROOT file of server
 
-// const express = require('express');
-// const React = require('react');
-// const renderToString = require('react-dom/server').renderToString;
-// const Home = require('./client/components/home').default;
-
 import express from 'express';
-import home from './views/home';
+import render from './views/render';
+
+import Home from '../src/client/components/home';
+import Task from '../src/client/components/task';
+import taskDB from '../src/data/tasks.json';
 
 const app = express();
+
+console.log(taskDB);
 
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-    res.send(home());
+    res.send(render(Home, taskDB));
 });
+
+app.get('/todos/:id', (req, res) => {
+    let task = taskDB.find((t) => t.id == req.params.id);
+    console.log(task);
+    // res.send(render(Task, { data: task }));
+    res.send(render(Home, { currentTask: task }));
+});
+
 
 app.listen(3000, () => {
     console.log('Listening on port 3000....');

@@ -1,19 +1,22 @@
 import React from 'react';
 import Task from './task';
+import taskDB from '../../data/tasks.json';
 
 class Home extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        console.log("home props", props);
         this.handleChange = this.handleChange.bind(this);
         this.addTodo = this.addTodo.bind(this);
         this.state = {
             newTask: "",
-            tasks: [
+            tasksxxx: [
                 { id: 1, "title": "Task 1", done: false, edit: false, rating: 5 },
                 { id: 2, "title": "Task 2", done: true, edit: false, rating: 0 },
                 { id: 3, "title": "Task 3", done: false, edit: false, rating: 2 }
             ],
-            currentTask: null
+            tasks: taskDB,
+            currentTask: props.currentTask
         }
     }
 
@@ -25,9 +28,12 @@ class Home extends React.Component {
             completed: false
         }
 
+        let tasks = [newTask, ...this.state.tasks];
+        taskDB.push(newTask);
+
         this.setState({
-            tasks: [newTask, ...this.state.tasks]
-        })
+            tasks
+        });
     }
 
 
@@ -67,7 +73,7 @@ class Home extends React.Component {
                 <button onClick={this.addTodo}>new todo</button>
                 {taskListUI}
 
-                {currentTask && <Task currentTask={currentTask} />
+                {currentTask && <Task data={currentTask} />
                 }
             </div >
         );
