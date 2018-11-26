@@ -193,12 +193,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = (0, _express2.default)(); // ROOT file of server
 
-console.log(_tasks2.default);
-
 app.use(_express2.default.static('public'));
 
+// Make our db accessible everywhere
+app.use(function (req, res, next) {
+    req.db = _tasks2.default;
+    next();
+});
+
 app.get('/', function (req, res) {
-    res.send((0, _render2.default)(_home2.default, _tasks2.default));
+    res.send((0, _render2.default)(_home2.default, { taskDB: _tasks2.default }));
 });
 
 app.get('/todos/:id', function (req, res) {
@@ -206,7 +210,6 @@ app.get('/todos/:id', function (req, res) {
         return t.id == req.params.id;
     });
     console.log(task);
-    // res.send(render(Task, { data: task }));
     res.send((0, _render2.default)(_home2.default, { currentTask: task }));
 });
 
@@ -300,8 +303,7 @@ var Home = function (_React$Component) {
         _this.addTodo = _this.addTodo.bind(_this);
         _this.state = {
             newTask: "",
-            tasksxxx: [{ id: 1, "title": "Task 1", done: false, edit: false, rating: 5 }, { id: 2, "title": "Task 2", done: true, edit: false, rating: 0 }, { id: 3, "title": "Task 3", done: false, edit: false, rating: 2 }],
-            tasks: _tasks2.default,
+            tasks: _tasks2.default, // todo: read this from props
             currentTask: props.currentTask
         };
         return _this;
@@ -348,6 +350,7 @@ var Home = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            console.log("state: ", this.state.tasks);
             var currentTask = this.state.currentTask;
             var taskListUI = this.state.tasks.map(function (task) {
                 return _react2.default.createElement(

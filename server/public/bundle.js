@@ -21269,8 +21269,7 @@ var Home = function (_React$Component) {
         _this.addTodo = _this.addTodo.bind(_this);
         _this.state = {
             newTask: "",
-            tasksxxx: [{ id: 1, "title": "Task 1", done: false, edit: false, rating: 5 }, { id: 2, "title": "Task 2", done: true, edit: false, rating: 0 }, { id: 3, "title": "Task 3", done: false, edit: false, rating: 2 }],
-            tasks: _tasks2.default,
+            tasks: _tasks2.default, // todo: read this from props
             currentTask: props.currentTask
         };
         return _this;
@@ -21317,6 +21316,7 @@ var Home = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            console.log("state: ", this.state.tasks);
             var currentTask = this.state.currentTask;
             var taskListUI = this.state.tasks.map(function (task) {
                 return _react2.default.createElement(

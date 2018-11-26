@@ -9,18 +9,22 @@ import taskDB from '../src/data/tasks.json';
 
 const app = express();
 
-console.log(taskDB);
 
 app.use(express.static('public'));
 
+// Make our db accessible everywhere
+app.use(function (req, res, next) {
+    req.db = taskDB;
+    next();
+});
+
 app.get('/', (req, res) => {
-    res.send(render(Home, taskDB));
+    res.send(render(Home, { taskDB }));
 });
 
 app.get('/todos/:id', (req, res) => {
     let task = taskDB.find((t) => t.id == req.params.id);
     console.log(task);
-    // res.send(render(Task, { data: task }));
     res.send(render(Home, { currentTask: task }));
 });
 
